@@ -13,6 +13,7 @@ public struct Choice {
 	public string text;
 }
 
+// The stage controls displayed text blocks like narrative text and choices.
 public class Stage : MonoBehaviour {
 
 	public static Stage S; 
@@ -38,12 +39,13 @@ public class Stage : MonoBehaviour {
 		rectTransform = GetComponent<RectTransform>();
 	}
 
-	// Use this for initialization
-	void Start () {
+	void Start() {
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update() {
+		// For some reasong we can not set the scrollbar value immediately.
+		// So we wait for two updates until we do it.
+		// This is ugly and should be improved.
 		if(scrollbarDirty > 0) {
 			scrollbarDirty--;
 			if(scrollbarDirty == 0) {
@@ -52,24 +54,22 @@ public class Stage : MonoBehaviour {
 		}
 	}
 
+	// Displayes a narrative text block
 	public void AddNarrative(string narrative) {
 		DeactivateOldChoices();
 		GameObject go = (GameObject)Instantiate(pfNarrative);
 		AddTextBlock(go, narrative, kNarrativeOffset);
 	}
 
+	// Displayes a narrative text block and gives one choice to continue.
+	// If the choice is selected the given action is executed.
 	public void AddNarrative(string narrative, Action act) {
 		AddNarrative(narrative);
 		AddChoices(new Choice[] { new Choice(act, "Continue") });
 	}
 
-	void DeactivateOldChoices() {
-		// Delete old buttons from option text.
-		for(int i=0; i<oldButtons.Length; i++) {
-			Destroy(oldButtons[i]);
-		}
-	}
-
+	// Displayes a bunch of choices which can be selected.
+	// If a choice is selected the corresponding action will be executed.
 	public void AddChoices(Choice[] choices) {
 		DeactivateOldChoices();
 		// Create new options and save created buttons.
@@ -86,6 +86,8 @@ public class Stage : MonoBehaviour {
 		}
 	}
 	
+	// Displayes a bunch of choices which can be selected.
+	// If a choice is an action is executed with the id of the selected choice.
 	public void AddChoices(Action<int> onChoice, string[] options) {
 		Choice[] choices = new Choice[options.Length];
 		for(int i=0; i<options.Length; i++) {
@@ -94,6 +96,13 @@ public class Stage : MonoBehaviour {
 			choices[i].text = options[i];
 		}
 		AddChoices(choices);
+	}
+
+	void DeactivateOldChoices() {
+		// Delete old buttons from option text.
+		for(int i=0; i<oldButtons.Length; i++) {
+			Destroy(oldButtons[i]);
+		}
 	}
 
 	void PurgeTextBlocks() {

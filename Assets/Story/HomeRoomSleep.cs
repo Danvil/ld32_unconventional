@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+// The sleeping room at the home of our hero.
 public class HomeRoomSleep {
 
 	public enum Entry { Awake, InBed, InRoom };

@@ -1,5 +1,6 @@
 ﻿using System;
 
+// A radio spreading the word.
 public class Radio {
 
 	int state = 0;
