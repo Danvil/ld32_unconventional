@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-// The whole world and related functionality like time of day
+﻿// The whole world and related functionality like time of day
 public class World {
 
 	public static World S = new World();

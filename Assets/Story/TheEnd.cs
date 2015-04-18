@@ -1,10 +1,7 @@
-using UnityEngine;
-using System.Collections;
-
 // The final word.
-public class TheEnd {
+public class TheEnd : StoryEntity {
 
 	public TheEnd() {
-		Stage.S.AddNarrative("THE END");
+		Narrate("THE END");
 	}
 }

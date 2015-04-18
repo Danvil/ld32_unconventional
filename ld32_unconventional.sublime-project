@@ -2,7 +2,8 @@
 	"folders":
 	[
 		{
-			"path": "Assets"
+			"path": "Assets",
+            "file_exclude_patterns": ["*.meta", "*.prefab", "*.unity"]
 		}
 	]
 }

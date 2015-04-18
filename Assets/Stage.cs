@@ -16,7 +16,11 @@ public struct Choice {
 // The stage controls displayed text blocks like narrative text and choices.
 public class Stage : MonoBehaviour {
 
-	public static Stage S; 
+	static Stage S;
+
+	public static Stage Singleton() {
+		return S;
+	}
 
 	public GameObject pfNarrative;
 	public GameObject pfOption;
@@ -55,17 +59,10 @@ public class Stage : MonoBehaviour {
 	}
 
 	// Displayes a narrative text block
-	public void AddNarrative(string narrative) {
+	public void AddNarrative(string text) {
 		DeactivateOldChoices();
 		GameObject go = (GameObject)Instantiate(pfNarrative);
-		AddTextBlock(go, narrative, kNarrativeOffset);
-	}
-
-	// Displayes a narrative text block and gives one choice to continue.
-	// If the choice is selected the given action is executed.
-	public void AddNarrative(string narrative, Action act) {
-		AddNarrative(narrative);
-		AddChoices(new Choice[] { new Choice(act, "Continue") });
+		AddTextBlock(go, text, kNarrativeOffset);
 	}
 
 	// Displayes a bunch of choices which can be selected.
@@ -84,18 +81,6 @@ public class Stage : MonoBehaviour {
 			button.onClick.AddListener(() => act());
 			oldButtons[i] = button;
 		}
-	}
-	
-	// Displayes a bunch of choices which can be selected.
-	// If a choice is an action is executed with the id of the selected choice.
-	public void AddChoices(Action<int> onChoice, string[] options) {
-		Choice[] choices = new Choice[options.Length];
-		for(int i=0; i<options.Length; i++) {
-			int copyi = i;
-			choices[i].action = () => onChoice(copyi);
-			choices[i].text = options[i];
-		}
-		AddChoices(choices);
 	}
 
 	void DeactivateOldChoices() {
