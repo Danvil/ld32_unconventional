@@ -4,6 +4,28 @@ public class HomeCorridor : StoryEntity {
 
 	int level = 2;
 
+	Dialog baconDialog;
+
+	public HomeCorridor() {
+		baconDialog = new Dialog();
+		baconDialog.AddLine("standing", "You stand before an old worn-down wooden door.",
+			new Awnser("Knock on the door", "knock"),
+			new Awnser("Leave", Default));
+		baconDialog.AddLine("knock",
+			"You knock on the door. At first nothing happens. After a while you hear a muffled voice talking through the door." + Quote("What do you want?"),
+			new Awnser(Quote("Can I join your breakfast?"), "join"),
+			new Awnser(Quote("Sorry, wrong door!"), Default));
+		baconDialog.AddLine("join", Quote("What breakfast? We do not have breakfast here. Mind your own business."),
+			new Awnser(Quote("Put I can clearly smell the meat!"), "meat"),
+			new Awnser(Quote("Well, nevermind then."), Default));
+		baconDialog.AddLine("meat", Quote("Be quite idiot! You must be delusional, we surely can not smell anything."),
+			new Awnser(Quote("Please let me in, I am really hungry!"), "noreply"),
+			new Awnser("Leave", Default));
+		baconDialog.AddLine("noreply", "The voice behind the door is quite.",
+			new Awnser("Knock on the door", "knock"),
+			new Awnser("Leave", Default));
+	}
+
 	public void EnterFromApartment() {
 		level = 2;
 		Default();
@@ -62,7 +84,10 @@ public class HomeCorridor : StoryEntity {
 	}
 
 	void NeighborBacon() {
-		Narrate("NeighborBacon", Default);
+		Narrate("You nose leads you towards one of the many doors where the smell of Bacon is most intense.", () => baconDialog.Play("standing"));
+	}
+
+	void NeighborBaconKnock() {
 	}
 
 	void LeaveToApartment() {
