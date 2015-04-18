@@ -1,0 +1,103 @@
+
+Story:
+
+1: Wake up, explore apartment
+2: Peacekeeper raid killing bacon neighbours
+3: Elaine
+3a: Accept Elaine Peacekeepers
+3b: 
+
+* Day 1:
+-> wake up
+-> Go scavaging
+-> find photo (or not)
+-> [opt] meet angry kids
+-> go sleep
+
+* Day 2 / day 3:
+-> day 2: elaine contacts you
+-> Elaine
+-> infiltrate Kester's home
+-> take photos and escape
+-> [opt] Noah and his gang
+-> [opt] meet old man
+-> market
+
+* Day 4:
+-> go to celebration
+-> confront Kester
+-> the end
+
+
+Characters:
+
+-> Elaine: impulsive, creative, aimable, young, beautiful
+	wants player to take photos of Kester
+	Trades with electric spare parts
+
+-> Noah: angry, compulsive, 
+   insults player, assaults if provoked, can be convinced to help
+
+-> Victor: old, competitive, sharp
+   wants player to kill Kester
+   treats player with unconventional weapon
+
+-> Mina: smelly, tells stories
+   needs help with Noa
+   mother of Adam
+
+-> Adam: silent, calm
+   Kester's butler
+
+-> Bella: cocky, intrusive
+   Harlot
+
+-> Kester: zealos, double-tongued
+   Leader of the community
+
+
+Locations:
+
+* Apartment block
+-> bedroom: sleep, radio
+-> kitchen: ??
+-> corridor: neighbors, nots
+-> roof: ??
+
+* Riverside
+-> Mina
+-> Near the fence
+-> At the river
+
+* Alleys
+-> Noah and his gang
+-> Dumbsters
+-> Abondend houses
+
+* Market
+-> Elaine
+-> Fish monger
+-> Bella
+-> Textile merchant
+
+* Junkyard
+-> Victor
+-> Victor's hut
+-> central
+-> junkyard alley
+
+* Kester's home:
+-> Adam
+-> kitchen
+-> bedroom
+-> corridor
+-> prayer room
+-> reception room
+
+
+Items :
+
+-> Stinky salmon
+-> Rope
+-> Textiles
+-> Old game console
