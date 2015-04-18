@@ -4,17 +4,15 @@ using System.Collections;
 // The sleeping room at the home of our hero.
 public class HomeRoomSleep {
 
-	public enum Entry { Awake, InBed, InRoom };
+	int hasSlept = 0;
 
-	public HomeRoomSleep(Entry entry) {
-		switch(entry) {
-			case Entry.Awake: Awake(); return;
-			case Entry.InBed: InBed(); return;
-			case Entry.InRoom: InRoom(); return;
-		}
+	public void WakeUp() {
+		Awake();
 	}
 
-	int hasSlept = 0;
+	public void EnterDoor() {
+		InRoom();
+	}
 
 	void Awake() {
 		hasSlept = 2;
@@ -26,7 +24,7 @@ public class HomeRoomSleep {
 	}
 
 	void InBed() {
-		Stage.S.AddNarrative(T.Observe("You lie in the bed in a small dark room. Next to your bed stands a old, scrubby radio on the ground."));
+		Stage.S.AddNarrative(T.Observe("You lie in the bed in a small dim room. Next to your bed stands a old, scrubby radio on the ground."));
 		Stage.S.AddChoices(new Choice[] {
 			new Choice(StandUp, "Stand up"),
 			new Choice(SwitchOnRadio, "Switch on the radio"),
@@ -46,7 +44,7 @@ public class HomeRoomSleep {
 
 	void InRoom() {
 		hasSlept = 0;
-		Stage.S.AddNarrative(T.Observe("You stand in a small dark room. In one corner is your bed. There is a window which is secured and barred with a couple of wooden planks. Opposite to the window is a heavy wooden door."));
+		Stage.S.AddNarrative(T.Observe("You stand in a small dim room. In one corner is your bed. There is a window which is secured and barred with a couple of wooden planks. Opposite to the window is a heavy wooden door."));
 		Stage.S.AddChoices(new Choice[] {
 			new Choice(Leave, "Open the door and walk out of the room."),
 			new Choice(InBed, "Lie down in bed.")
@@ -54,11 +52,11 @@ public class HomeRoomSleep {
 	}
 
 	void Leave() {
-		new TheEnd();
+		World.S.homeRoomKitchen.EnterFromHomeRoomSleep();
 	}
 
 	void SwitchOnRadio() {
-		new Radio(() => new HomeRoomSleep(Entry.InBed));
+		new Radio(InBed);
 	}
 
 	void StayInBed() {

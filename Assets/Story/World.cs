@@ -6,6 +6,9 @@ public class World {
 
 	public static World S = new World();
 
+	public HomeRoomSleep homeRoomSleep = new HomeRoomSleep();
+	public HomeRoomKitchen homeRoomKitchen = new HomeRoomKitchen();
+
 	public int day = 1;
 	public int timeOfDay = 6;
 
