@@ -25,17 +25,17 @@ public class HomeKitchen : StoryEntity {
 	public void InRoomDark() {
 		Narrate("You stand in a window-less dark room. The lack of proper lighting makes it hard to see or do anything useful.");
 		Choose(
-			new Choice(FumbleForDoor, "Fumble your way towards the door."),
-			new Choice(() => SwitchLight(true), "Try to find the light switch.")
+			Opt(FumbleForDoor, "Fumble your way towards the door."),
+			Opt(() => SwitchLight(true), "Try to find the light switch.")
 		);
 	}
 
 	public void InRoomLight() {
 		Narrate("You stand in your small kitchen.");
 		Choose(
-			new Choice(() => SwitchLight(false), "Switch off the light."),
-			new Choice(LeaveToBedroom, "Leave for your bedroom."),
-			new Choice(LeaveToCorridor, "Leave for the corridor."));
+			Opt(() => SwitchLight(false), "Switch off the light."),
+			Opt(LeaveToBedroom, "Leave for your bedroom."),
+			Opt(LeaveToCorridor, "Leave for the corridor."));
 	}
 
 	public void SwitchLight(bool value) {
@@ -49,9 +49,7 @@ public class HomeKitchen : StoryEntity {
 
 	public void FumbleForDoor() {
 		Narrate("You are a bit desorientated in the darkness and fumble for a door.",
-			Choice.Random(
-				new WA(LeaveToBedroom, 1),
-				new WA(LeaveToCorridor, 1)));
+			Choice.Random(LeaveToBedroom, LeaveToCorridor));
 	}
 
 	public void LeaveToBedroom() {
@@ -59,6 +57,6 @@ public class HomeKitchen : StoryEntity {
 	}
 
 	public void LeaveToCorridor() {
-		World.S.homeCorridor.EnterFromKitchen();
+		World.S.homeCorridor.EnterFromApartment();
 	}
 }

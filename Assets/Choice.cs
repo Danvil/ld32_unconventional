@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-public struct WA {
+public class WA {
 	public WA(Action a, float w) {
 		action = a;
 		weight = w;
@@ -11,7 +11,7 @@ public struct WA {
 	public float weight;
 }
 
-public struct Choice {
+public class Choice {
 	public Choice(Action a, string t) {
 		action = a;
 		text = t;
@@ -20,7 +20,14 @@ public struct Choice {
 	public Action action;
 	public string text;
 
+	public static Action Random(params Action[] actions) {
+		actions = actions.Where(x => x != null).ToArray();
+		System.Diagnostics.Debug.Assert(actions.Length > 0, "Need at least one action!");
+		return actions[UnityEngine.Random.Range(0, actions.Length)];
+	}
+
 	public static Action Random(params WA[] options) {
+		options = options.Where(x => x.action != null).ToArray();
 		System.Diagnostics.Debug.Assert(options.Length > 0, "Need at least one option!");
 		float total = options.Sum(x => x.weight);
 		float now = UnityEngine.Random.Range(0.0f, total);

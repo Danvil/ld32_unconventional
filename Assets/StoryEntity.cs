@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 public class StoryEntity {
 
@@ -8,9 +9,35 @@ public class StoryEntity {
 
 	Stage stage;
 
+	static public T Rnd<T>(T[] u) {
+		System.Diagnostics.Debug.Assert(u.Length > 0, "Need at least one element");
+		return u[Rnd(u.Length)];
+	}
+
+	// Gives a random number in [0, n[
+	static public int Rnd(int n) {
+		return UnityEngine.Random.Range(0, n);
+	}
+
+	static public Choice Opt(Action action, string text) {
+		return new Choice(action, text);
+	}
+
+	static public Choice Opt(bool cond, Action action, string text) {
+		return cond ? Opt(action, text) : null;
+	}
+
 	// Displayes a narrative text block
 	public void Narrate(string text) {
 		stage.AddNarrative(text);
+	}
+
+	static public Choice Condition(bool cond, Choice choice) {
+		return cond ? choice : null;
+	}
+
+	static public string Condition(bool cond, string text) {
+		return cond ? text : "";
 	}
 
 	// Displayes a narrative text block and gives one choice to continue.
@@ -22,18 +49,19 @@ public class StoryEntity {
 
 	// Displayes a dialog text block
 	public void Talk(string text) {
-		stage.AddNarrative(Quoted(text));
+		stage.AddNarrative(Quote(text));
 	}
 
 	// Asks the player for a choice.
 	public void Choose(params Choice[] choices) {
+		choices = choices.Where(x => x != null && x.action != null).ToArray();
 		for(int i=0; i<choices.Length; i++) {
 			choices[i].text = Italics(choices[i].text);
 		}
 		stage.AddChoices(choices);
 	}
 
-	static public string Quoted(string text) {
+	static public string Quote(string text) {
 		return "\u201C" + text + "\u201D";
 	}
 

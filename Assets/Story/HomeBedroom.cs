@@ -26,9 +26,9 @@ public class HomeBedroom : StoryEntity {
 	void InBed() {
 		Narrate("You lie in the bed in a small dim room. Next to your bed stands a old, scrubby radio on the ground.");
 		Choose(
-			new Choice(StandUp, "Stand up"),
-			new Choice(SwitchOnRadio, "Switch on the radio"),
-			new Choice(StayInBed, "Stay in bed"));
+			Opt(StandUp, "Stand up"),
+			Opt(SwitchOnRadio, "Switch on the radio"),
+			Opt(StayInBed, "Stay in bed"));
 	}
 
 	void StandUp() {
@@ -46,8 +46,8 @@ public class HomeBedroom : StoryEntity {
 		hasSlept = 0;
 		Narrate("You stand in a small dim room. In one corner is your bed. There is a window which is secured and barred with a couple of wooden planks. Opposite to the window is a heavy wooden door.");
 		Choose(
-			new Choice(Leave, "Open the door and walk out of the room."),
-			new Choice(InBed, "Lie down in bed."));
+			Opt(Leave, "Open the door and walk out of the room."),
+			Opt(InBed, "Lie down in bed."));
 	}
 
 	void Leave() {

@@ -34,8 +34,8 @@ public class Radio : StoryEntity {
 		Talk(text[state]);
 		state = (state + 1) % text.Length;
 		Choose(
-			new Choice(Play, "Keep listening"),
-			new Choice(radioOffAction, "Turn the radio off")
+			Opt(Play, "Keep listening"),
+			Opt(radioOffAction, "Turn the radio off")
 		);
 	}
 }

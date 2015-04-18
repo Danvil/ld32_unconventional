@@ -7,7 +7,8 @@ public class Story : MonoBehaviour {
 
 	void Start() {
 		//InfiniteTest(0);
-		new TheBegin();
+		// new TheBegin();
+		World.S.homeCorridor.EnterFromApartment();
 	}
 	
 	// void InfiniteTest(int i) {
