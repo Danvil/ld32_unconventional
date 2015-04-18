@@ -1,9 +1,8 @@
 *.pidb
 *.userprefs
 Library
-build
+Build
 Temp
-Builds
 *.csproj
 *.sln
 *.sublime-workspace
