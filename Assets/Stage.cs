@@ -4,7 +4,18 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
+public struct Choice {
+	public Choice(Action a, string t) {
+		action = a;
+		text = t;
+	}
+	public Action action;
+	public string text;
+}
+
 public class Stage : MonoBehaviour {
+
+	public static Stage S; 
 
 	public GameObject pfNarrative;
 	public GameObject pfOption;
@@ -14,7 +25,6 @@ public class Stage : MonoBehaviour {
 	const float kOptionOffset = 4.0f;
 	const float kOptionOffsetLast = 15.0f;
 
-	float position = 0;
 	RectTransform rectTransform;
 	int scrollbarDirty = 0;
 
@@ -24,6 +34,7 @@ public class Stage : MonoBehaviour {
 	Button[] oldButtons = new Button[0];
 
 	void Awake() {
+		S = this;
 		rectTransform = GetComponent<RectTransform>();
 	}
 
@@ -42,29 +53,47 @@ public class Stage : MonoBehaviour {
 	}
 
 	public void AddNarrative(string narrative) {
+		DeactivateOldChoices();
 		GameObject go = (GameObject)Instantiate(pfNarrative);
 		AddTextBlock(go, narrative, kNarrativeOffset);
 	}
-	
-	public void AddChoices(Action<int> onChoice, string[] options) {
+
+	public void AddNarrative(string narrative, Action act) {
+		AddNarrative(narrative);
+		AddChoices(new Choice[] { new Choice(act, "Continue") });
+	}
+
+	void DeactivateOldChoices() {
 		// Delete old buttons from option text.
 		for(int i=0; i<oldButtons.Length; i++) {
 			Destroy(oldButtons[i]);
 		}
+	}
+
+	public void AddChoices(Choice[] choices) {
+		DeactivateOldChoices();
 		// Create new options and save created buttons.
-		oldButtons = new Button[options.Length];
-		for(int i=0; i<options.Length; i++) {
+		oldButtons = new Button[choices.Length];
+		for(int i=0; i<choices.Length; i++) {
 			GameObject go = (GameObject)Instantiate(pfOption);
-			float len = (i + 1 == options.Length ? kOptionOffsetLast : kOptionOffset);
+			float len = (i + 1 == choices.Length ? kOptionOffsetLast : kOptionOffset);
 			string prefix = string.Format("<b>{0}: </b>", i + 1);
-			AddTextBlock(go, prefix + options[i], len);
+			AddTextBlock(go, prefix + choices[i].text, len);
 			Button button = go.GetComponent<Button>();
-			int copyi = i; // Need to create a copy otherwise a kind of reference is used in the event.
-			button.onClick.AddListener(() => {
-				onChoice(copyi);
-			});
+			Action act = choices[i].action;
+			button.onClick.AddListener(() => act());
 			oldButtons[i] = button;
 		}
+	}
+	
+	public void AddChoices(Action<int> onChoice, string[] options) {
+		Choice[] choices = new Choice[options.Length];
+		for(int i=0; i<options.Length; i++) {
+			int copyi = i;
+			choices[i].action = () => onChoice(copyi);
+			choices[i].text = options[i];
+		}
+		AddChoices(choices);
 	}
 
 	void PurgeTextBlocks() {
