@@ -56,7 +56,8 @@ public class Stage : MonoBehaviour {
 		for(int i=0; i<options.Length; i++) {
 			GameObject go = (GameObject)Instantiate(pfOption);
 			float len = (i + 1 == options.Length ? kOptionOffsetLast : kOptionOffset);
-			AddTextBlock(go, options[i], len);
+			string prefix = string.Format("<b>{0}: </b>", i + 1);
+			AddTextBlock(go, prefix + options[i], len);
 			Button button = go.GetComponent<Button>();
 			int copyi = i; // Need to create a copy otherwise a kind of reference is used in the event.
 			button.onClick.AddListener(() => {
