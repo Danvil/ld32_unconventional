@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-// The sleeping room at the home of our hero.
+// The bedroom at the home of our hero.
 public class HomeBedroom : StoryEntity {
 
 	int hasSlept = 0;

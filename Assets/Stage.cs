@@ -4,15 +4,6 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
-public struct Choice {
-	public Choice(Action a, string t) {
-		action = a;
-		text = t;
-	}
-	public Action action;
-	public string text;
-}
-
 // The stage controls displayed text blocks like narrative text and choices.
 public class Stage : MonoBehaviour {
 

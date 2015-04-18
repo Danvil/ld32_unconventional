@@ -49,13 +49,9 @@ public class HomeKitchen : StoryEntity {
 
 	public void FumbleForDoor() {
 		Narrate("You are a bit desorientated in the darkness and fumble for a door.",
-			() => {
-				if(UnityEngine.Random.Range(0, 2) == 0) {
-					LeaveToBedroom();
-				} else {
-					LeaveToCorridor();
-				}
-			});
+			Choice.Random(
+				new WA(LeaveToBedroom, 1),
+				new WA(LeaveToCorridor, 1)));
 	}
 
 	public void LeaveToBedroom() {
@@ -63,6 +59,6 @@ public class HomeKitchen : StoryEntity {
 	}
 
 	public void LeaveToCorridor() {
-		new TheEnd();
+		World.S.homeCorridor.EnterFromKitchen();
 	}
 }

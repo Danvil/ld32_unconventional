@@ -5,6 +5,7 @@ public class World {
 
 	public HomeBedroom homeBedroom = new HomeBedroom();
 	public HomeKitchen homeKitchen = new HomeKitchen();
+	public HomeCorridor homeCorridor = new HomeCorridor();
 
 	public int day = 1;
 	public int timeOfDay = 6;

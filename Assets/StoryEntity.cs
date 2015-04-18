@@ -17,7 +17,7 @@ public class StoryEntity {
 	// If the choice is selected the given action is executed.
 	public void Narrate(string text, Action action) {
 		Narrate(text);
-		Choose(new Choice[] { new Choice(action, "Continue") });
+		Choose(new Choice(action, "Continue"));
 	}
 
 	// Displayes a dialog text block
@@ -25,23 +25,8 @@ public class StoryEntity {
 		stage.AddNarrative(Quoted(text));
 	}
 
-	public void Choose(Choice c1) {
-		Choose(new Choice[] { c1 }); }
-
-	public void Choose(Choice c1, Choice c2) {
-		Choose(new Choice[] { c1, c2 }); }
-
-	public void Choose(Choice c1, Choice c2, Choice c3) {
-		Choose(new Choice[] { c1, c2, c3 }); }
-
-	public void Choose(Choice c1, Choice c2, Choice c3, Choice c4) {
-		Choose(new Choice[] { c1, c2, c3, c4 }); }
-
-	public void Choose(Choice c1, Choice c2, Choice c3, Choice c4, Choice c5) {
-		Choose(new Choice[] { c1, c2, c3, c4, c5 }); }
-
 	// Asks the player for a choice.
-	public void Choose(Choice[] choices) {
+	public void Choose(params Choice[] choices) {
 		for(int i=0; i<choices.Length; i++) {
 			choices[i].text = Italics(choices[i].text);
 		}
