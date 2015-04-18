@@ -2,14 +2,18 @@ using UnityEngine;
 using System.Collections;
 
 // The kitchen at the home of our hero.
-public class HomeRoomKitchen : StoryEntity {
+public class HomeKitchen : StoryEntity {
 
 	bool lightSwitchedOn = false;
 
-	public void EnterFromHomeRoomSleep() {
+	public void EnterFromBedroom() {
 		InRoom();
 	}
 
+	public void EnterFromCorridor() {
+		InRoom();
+	}
+	
 	public void InRoom() {
 		if(lightSwitchedOn) {
 			InRoomLight();
@@ -30,8 +34,8 @@ public class HomeRoomKitchen : StoryEntity {
 		Narrate("You stand in your small kitchen.");
 		Choose(
 			new Choice(() => SwitchLight(false), "Switch off the light."),
-			new Choice(LeaveHomeSleepRoom, "Leave for your sleeping room."),
-			new Choice(LeaveCorridor, "Leave for the corridor."));
+			new Choice(LeaveToBedroom, "Leave for your bedroom."),
+			new Choice(LeaveToCorridor, "Leave for the corridor."));
 	}
 
 	public void SwitchLight(bool value) {
@@ -47,18 +51,18 @@ public class HomeRoomKitchen : StoryEntity {
 		Narrate("You are a bit desorientated in the darkness and fumble for a door.",
 			() => {
 				if(UnityEngine.Random.Range(0, 2) == 0) {
-					LeaveHomeSleepRoom();
+					LeaveToBedroom();
 				} else {
-					LeaveCorridor();
+					LeaveToCorridor();
 				}
 			});
 	}
 
-	public void LeaveHomeSleepRoom() {
-		World.S.homeRoomSleep.EnterDoor();
+	public void LeaveToBedroom() {
+		World.S.homeBedroom.EnterDoor();
 	}
 
-	public void LeaveCorridor() {
+	public void LeaveToCorridor() {
 		new TheEnd();
 	}
 }

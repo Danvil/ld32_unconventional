@@ -3,8 +3,8 @@ public class World {
 
 	public static World S = new World();
 
-	public HomeRoomSleep homeRoomSleep = new HomeRoomSleep();
-	public HomeRoomKitchen homeRoomKitchen = new HomeRoomKitchen();
+	public HomeBedroom homeBedroom = new HomeBedroom();
+	public HomeKitchen homeKitchen = new HomeKitchen();
 
 	public int day = 1;
 	public int timeOfDay = 6;

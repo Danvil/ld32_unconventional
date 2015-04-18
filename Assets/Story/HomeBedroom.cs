@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 // The sleeping room at the home of our hero.
-public class HomeRoomSleep : StoryEntity {
+public class HomeBedroom : StoryEntity {
 
 	int hasSlept = 0;
 
@@ -51,7 +51,7 @@ public class HomeRoomSleep : StoryEntity {
 	}
 
 	void Leave() {
-		World.S.homeRoomKitchen.EnterFromHomeRoomSleep();
+		World.S.homeKitchen.EnterFromBedroom();
 	}
 
 	void SwitchOnRadio() {
