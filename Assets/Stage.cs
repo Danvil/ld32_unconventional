@@ -1,0 +1,76 @@
+﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
+using System.Collections.Generic;
+using System;
+
+public class Stage : MonoBehaviour {
+
+	public GameObject pfNarrative;
+	public GameObject pfOption;
+	public Scrollbar scrollbar;
+
+	const float kNarrativeOffset = 6.0f;
+	const float kOptionOffset = 4.0f;
+	const float kOptionOffsetLast = 15.0f;
+
+	float position = 0;
+	RectTransform rectTransform;
+	int scrollbarDirty = 0;
+
+	Button[] oldButtons = new Button[0];
+
+	void Awake() {
+		rectTransform = GetComponent<RectTransform>();
+	}
+
+	// Use this for initialization
+	void Start () {
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		if(scrollbarDirty > 0) {
+			scrollbarDirty--;
+			if(scrollbarDirty == 0) {
+				scrollbar.value = 0;
+			}
+		}
+	}
+
+	public void AddNarrative(string narrative) {
+		GameObject go = (GameObject)Instantiate(pfNarrative);
+		AddTextElement(go, narrative, kNarrativeOffset);
+	}
+	
+	public void AddChoices(Action<int> onChoice, string[] options) {
+		// Delete old buttons from option text.
+		for(int i=0; i<oldButtons.Length; i++) {
+			Destroy(oldButtons[i]);
+		}
+		// Create new options and save created buttons.
+		oldButtons = new Button[options.Length];
+		for(int i=0; i<options.Length; i++) {
+			GameObject go = (GameObject)Instantiate(pfOption);
+			float len = (i + 1 == options.Length ? kOptionOffsetLast : kOptionOffset);
+			AddTextElement(go, options[i], len);
+			Button button = go.GetComponent<Button>();
+			int copyi = i; // Need to create a copy otherwise a kind of reference is used in the event.
+			button.onClick.AddListener(() => onChoice(copyi));
+			oldButtons[i] = button;
+		}
+	}
+
+	void AddTextElement(GameObject go, string text, float offset) {
+		go.GetComponent<Text>().text = text;
+		go.GetComponent<ContentSizeFitter>().SetLayoutVertical();
+		RectTransform rt = go.GetComponent<RectTransform>();
+		rt.SetParent(this.transform);
+		float currentHeight = rectTransform.sizeDelta.y;
+		rt.anchoredPosition = new Vector2(0, -currentHeight);
+		float newHeight = currentHeight + rt.sizeDelta.y + offset;
+		rectTransform.sizeDelta = new Vector2(380, newHeight);
+		scrollbar.size = 580.0f / newHeight;
+		scrollbarDirty = 2;
+	}
+}
