@@ -18,6 +18,9 @@ public class Stage : MonoBehaviour {
 	RectTransform rectTransform;
 	int scrollbarDirty = 0;
 
+	// All text blocks on the stage (newest first)
+	List<GameObject> textBlocks = new List<GameObject>();
+
 	Button[] oldButtons = new Button[0];
 
 	void Awake() {
@@ -40,7 +43,7 @@ public class Stage : MonoBehaviour {
 
 	public void AddNarrative(string narrative) {
 		GameObject go = (GameObject)Instantiate(pfNarrative);
-		AddTextElement(go, narrative, kNarrativeOffset);
+		AddTextBlock(go, narrative, kNarrativeOffset);
 	}
 	
 	public void AddChoices(Action<int> onChoice, string[] options) {
@@ -53,15 +56,40 @@ public class Stage : MonoBehaviour {
 		for(int i=0; i<options.Length; i++) {
 			GameObject go = (GameObject)Instantiate(pfOption);
 			float len = (i + 1 == options.Length ? kOptionOffsetLast : kOptionOffset);
-			AddTextElement(go, options[i], len);
+			AddTextBlock(go, options[i], len);
 			Button button = go.GetComponent<Button>();
 			int copyi = i; // Need to create a copy otherwise a kind of reference is used in the event.
-			button.onClick.AddListener(() => onChoice(copyi));
+			button.onClick.AddListener(() => {
+				onChoice(copyi);
+			});
 			oldButtons[i] = button;
 		}
 	}
 
-	void AddTextElement(GameObject go, string text, float offset) {
+	void PurgeTextBlocks() {
+		// Unity3D supports only 65k vertices per canvas.
+		const int kMaxCharacters = 10000;
+		// This function deletes old text blocks to guarantee that not too much text is displayed.
+		// First find out which text blocks we can keep.
+		int num = 0;
+		int firstDeleted = textBlocks.Count;
+		for(int i=0; i<textBlocks.Count; i++) {
+			num += textBlocks[i].GetComponent<Text>().text.Length;
+			if(num > kMaxCharacters) {
+				firstDeleted = i;
+				break;
+			}
+		}
+		// Delete remaining text blocks.
+		for(int i=firstDeleted; i<textBlocks.Count; i++) {
+			Destroy(textBlocks[i]);
+		}
+		textBlocks.RemoveRange(firstDeleted, textBlocks.Count - firstDeleted);
+	}
+
+	void AddTextBlock(GameObject go, string text, float offset) {
+		PurgeTextBlocks();
+		textBlocks.Insert(0, go);
 		go.GetComponent<Text>().text = text;
 		go.GetComponent<ContentSizeFitter>().SetLayoutVertical();
 		RectTransform rt = go.GetComponent<RectTransform>();
