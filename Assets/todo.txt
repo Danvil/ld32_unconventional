@@ -7,6 +7,12 @@ Story:
 	a: Accept Elaine's proposal
 	b: Reject
 6: Mina, Bella, Victor, Noah
+7: Kester Manor infiltration
+8: Deal with Kester
+9: Kester's Death / Kester's Photo
+10: Get back to Elaine / Sleep with the homeless
+11: Day of Mourning assembly
+12: Peace thereafter
 
 * Day 1:
 -> wake up
@@ -87,7 +93,7 @@ Locations:
 -> central
 -> junkyard alley
 
-* Kester's home:
+* Kester Manor:
 -> Adam
 -> kitchen
 -> bedroom

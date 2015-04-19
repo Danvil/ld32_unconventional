@@ -19,6 +19,9 @@ public class Stage : MonoBehaviour {
 	const float kOptionOffset = 4.0f;
 	const float kOptionOffsetLast = 15.0f;
 
+	const float kWidth = 410;
+	const float kHeight = 590;
+
 	RectTransform rectTransform;
 	int scrollbarDirty = 0;
 
@@ -110,8 +113,8 @@ public class Stage : MonoBehaviour {
 		float currentHeight = rectTransform.sizeDelta.y;
 		rt.anchoredPosition = new Vector2(0, -currentHeight);
 		float newHeight = currentHeight + rt.sizeDelta.y + offset;
-		rectTransform.sizeDelta = new Vector2(380, newHeight);
-		scrollbar.size = 580.0f / newHeight;
+		rectTransform.sizeDelta = new Vector2(kWidth, newHeight);
+		scrollbar.size = kHeight / newHeight;
 		scrollbarDirty = 2;
 	}
 }

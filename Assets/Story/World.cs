@@ -22,4 +22,8 @@ public class World {
 
 	public bool raidHappend = false;
 	public bool peaceKeeperBeatup = false;
+	public bool elaineMourning = false;
+	public bool smelledTheBacon = false;
+	public bool refusedElaine = false;
+
 }
