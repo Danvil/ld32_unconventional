@@ -9,9 +9,7 @@ public class Stage : MonoBehaviour {
 
 	static Stage S;
 
-	public static Stage Singleton() {
-		return S;
-	}
+	public static Stage Singleton { get { return S; } }
 
 	public GameObject pfNarrative;
 	public GameObject pfOption;

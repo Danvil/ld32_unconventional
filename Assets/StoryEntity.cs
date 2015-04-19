@@ -4,10 +4,12 @@ using System.Linq;
 public class StoryEntity {
 
 	public StoryEntity() {
-		stage = Stage.Singleton();
+		stage = Stage.Singleton;
 	}
 
 	Stage stage;
+
+	public World W { get { return World.Singleton; } }
 
 	static public T Rnd<T>(T[] u) {
 		System.Diagnostics.Debug.Assert(u.Length > 0, "Need at least one element");

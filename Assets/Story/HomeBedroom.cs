@@ -17,8 +17,8 @@ public class HomeBedroom : StoryEntity {
 	void Awake() {
 		hasSlept = 2;
 		string bacon = "";
-		if(World.S.day == 1 && World.S.IsFirstLight()) {
-			bacon += " There is a faint smell of burned meat in the air. Some of the neighbours seem to have an illegal breakfast. Hopefully they do not provoke a raid from the peacekeepers.";
+		if(W.day == 1 && W.IsFirstLight()) {
+			bacon += " There is a faint smell of burned meat in the air. Some of the neighbours seem to have an illegal breakfast. Hopefully the peacekeepers will not notice.";
 		}
 		Narrate("Slowly waking up, you try to focus on your surroundings. A single sunray is shining through the wooden boards which are nailed against the window. Small dust particles are dancing in the air." + bacon, InBed);
 	}
@@ -51,7 +51,7 @@ public class HomeBedroom : StoryEntity {
 	}
 
 	void Leave() {
-		World.S.homeKitchen.EnterFromBedroom();
+		W.homeKitchen.EnterFromBedroom();
 	}
 
 	void SwitchOnRadio() {
@@ -59,7 +59,7 @@ public class HomeBedroom : StoryEntity {
 	}
 
 	void StayInBed() {
-		World.S.timeOfDay++;
+		W.timeOfDay++;
 		hasSlept = 1;
 		Narrate("You turn around and cuddle in your blanket. You lie there pondering about the meaning of live and wish you could stay in bed the whole day. Your eye lids become heavy, and you fall asleep for an hour.", InBed);
 	}

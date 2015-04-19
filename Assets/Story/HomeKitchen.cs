@@ -53,10 +53,10 @@ public class HomeKitchen : StoryEntity {
 	}
 
 	public void LeaveToBedroom() {
-		World.S.homeBedroom.EnterDoor();
+		W.homeBedroom.EnterDoor();
 	}
 
 	public void LeaveToCorridor() {
-		World.S.homeCorridor.EnterFromApartment();
+		W.homeCorridor.EnterFromApartment();
 	}
 }

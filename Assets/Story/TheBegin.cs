@@ -2,6 +2,6 @@
 public class TheBegin : StoryEntity {
 
 	public TheBegin() {
-		new Radio(() => World.S.homeBedroom.WakeUp());
+		new Radio(() => W.homeBedroom.WakeUp());
 	}
 }

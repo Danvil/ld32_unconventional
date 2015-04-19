@@ -6,9 +6,10 @@ public class Story : MonoBehaviour {
 	public Stage stage;
 
 	void Start() {
+		World.Singleton = new World();
 		//InfiniteTest(0);
-		// new TheBegin();
-		World.S.homeCorridor.EnterFromApartment();
+		//new TheBegin();
+		World.Singleton.homeCorridor.EnterFromApartment();
 	}
 	
 	// void InfiniteTest(int i) {

@@ -3,9 +3,10 @@ Story:
 
 1: Wake up, explore apartment
 2: Peacekeeper raid killing bacon neighbours
-3: Elaine
-3a: Accept Elaine Peacekeepers
-3b: 
+3/4: Elaine asks for help
+	a: Accept Elaine's proposal
+	b: Reject
+6: Mina, Bella, Victor, Noah
 
 * Day 1:
 -> wake up

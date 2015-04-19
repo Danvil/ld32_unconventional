@@ -14,7 +14,7 @@ public class Radio : StoryEntity {
 	}
 
 	void Play() {
-		int daysLeft = 5 - World.S.day;
+		int daysLeft = 5 - W.day;
 		string message = "";
 		if(daysLeft == 0) {
 			message = "Today is the Day of Mourning. TODO";
@@ -28,7 +28,7 @@ public class Radio : StoryEntity {
 			"More radio",
 			"Event more radio"
 		};
-		if(state == 0 && !World.S.IsFirstLight()) {
+		if(state == 0 && !W.IsFirstLight()) {
 			state = 1;
 		}
 		Talk(text[state]);
