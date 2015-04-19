@@ -29,4 +29,6 @@ public class World {
 	public bool agreedToPhoto = false;
 
 	public int bellaRumor = 0;
+	public bool learnedAboutAdam = false;
+	public bool discoveredHoleInWall = false;
 }

@@ -55,14 +55,14 @@ public class Market : StoryEntity {
 		elaine.AddLine("think?", Quote("What do you think?"),
 			new Answer(Quote("This is madness they will discover me!"), "madness"),
 			new Answer(Quote("Why don't you go yourself?"), "yourself"),
-			new Answer(Quote("Ok, I will do it, but no promises."), "ok"),
+			new Answer(Quote("Ok, I will try it, but no promises."), "ok"),
 			new Answer(Quote("Kester will pay for what he has done!"), "ok"),
 			new Answer(Quote("It is too dangerous. I can not do it."), "nook")
 		);
 		elaine.AddLine("madness", Quote("Not if you are careful. The Day of Mourning is the only day of the year on which  Kester has to leave his manor and show himself in public. An opportunity like this does not come again for a long time."), "think?");
 		elaine.AddLine("yourself", Quote("I do not have the courage to do it. I would just blunder as always and they would detect me."), "think?");
 		elaine.AddLine("nook", Quote("Well, I can not force you. If you would please excuse me then."), "default");
-		elaine.AddLine("ok", Quote("Splendid! Return to me once you have the photos.") + " Elaine seems relieved as if some of the burden on her shoulders has become a bit lighter. " + Quote("Perhaps Bella at the market can help you. She seems to know a few secrets about people."), () => { W.agreedToPhoto = true; }, "default");
+		elaine.AddLine("ok", Quote("Splendid!") + " She hands you the camera and a pack of films. " + Quote("Return to me once you have the photos.") + " Elaine seems relieved as if some of the burden on her shoulders has become a bit lighter. " + Quote("Perhaps Bella at the market can help you. She seems to know a few secrets about people."), () => { W.agreedToPhoto = true; }, "default");
 		elaine.AddLine("leave", InspectStalls);
 		
 		// The fish monger tries to sell fish he does not have
@@ -85,7 +85,7 @@ public class Market : StoryEntity {
 
 		// Bella!
 		bella = new Dialog();
-		bella.AddLine("hi", Quote("Hi sweetheart, how can I make you happy?") + " She smiles at you warmly.", "dialog");
+		bella.AddLine("hi", Quote("Hi sweetheart, the guys around here call me Bella. How can I make you happy?") + " She smiles at you warmly.", "dialog");
 		bella.AddLine("dialog", "",
 			new Answer("Why is the Swordfish closed?", "swordfish"),
 			new Answer(() => W.agreedToPhoto, Quote("What is Kester doing with our food?"), "kester_rumors"),
