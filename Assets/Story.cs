@@ -6,10 +6,22 @@ public class Story : MonoBehaviour {
 	public Stage stage;
 
 	void Start() {
-		World.Singleton = new World();
+		World world = new World();
+		World.Singleton = world;
+
 		//InfiniteTest(0);
-		//new TheBegin();
-		World.Singleton.homeCorridor.EnterFromApartment();
+
+		// Normal start
+		// new Radio(() => world.homeBedroom.WakeUp());
+
+		// Start when entering the corridor
+		// world.homeCorridor.EnterFromApartment();
+
+		// Start after you disposed the body together with Elaine.
+		world.timeOfDay = 8;
+		world.raidHappend = true;
+		world.refusedElaine = false;
+		world.riverside.Enter();
 	}
 	
 	// void InfiniteTest(int i) {

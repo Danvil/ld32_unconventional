@@ -92,7 +92,7 @@ public class HomeCorridor : StoryEntity {
 		elaineHelp.AddLine("funeral", Quote("This is not the time for jokes. You know very well that people like us don't get funerals. Everyone is throwing their dead into the river."), "throw");
 		elaineHelp.AddLine("throw", Quote("I'll count till three: 1... 2...") + " Together you swing the body back and forth." + Quote("3!") + " You let loose and the body is flying for not even two meters before it falls into the river with a loud splashing noise.", "end");
 		elaineHelp.AddLine("end", "The woman turns towards the water and stands there in complete silence. Slowly the current takes the body and carries him downstream.", "end2");
-		elaineHelp.AddLine("end2", "After a while she turns towards you with a weak smile. " + Quote("My name is Elaine. Come meet me at the marketplace later, and perhaps I can thank you properly for your help. I have to run back now to clean up the rest, before the peacekeepers come back.") + "Without waiting for a reply she turns around and runs back towards the alley.", () => W.riverside.Enter());
+		elaineHelp.AddLine("end2", "After a while she turns towards you with a weak smile. " + Quote("My name is Elaine.") + " She looks you straight in the eyes and speaks with a silent voice. " + Quote("This injustice has to stop and I have an idea how it can be done. Come meet me at the market place in the " + kElaineShopName + ". I have to run back now to clean up the rest, before the peacekeepers come back.") + "Without waiting for a reply she turns around and runs back towards the alley.", () => { W.timeOfDay = 8; W.riverside.Enter(); });
 	}
 
 	public void PeacekeeperBeatUp() {

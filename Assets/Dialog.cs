@@ -73,6 +73,10 @@ public class Dialog : StoryEntity {
 		lines[tag] = new DialogLine() { text = text, answers = answers };
 	}
 
+	public void AddLine(string tag, string text, Action action, string nextTag) {
+		lines[tag] = new DialogLine() { text = text, answers = new Answer[] { new Answer("", nextTag, action) } };
+	}
+
 	public void AddLine(string tag, string text, params Answer[] answers) {
 		lines[tag] = new DialogLine() { text = text, answers = answers };
 	}

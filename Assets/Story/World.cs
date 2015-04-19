@@ -8,6 +8,7 @@ public class World {
 	public HomeCorridor homeCorridor = new HomeCorridor();
 	public Street street = new Street();
 	public Riverside riverside = new Riverside();
+	public Market market = new Market();
 
 	public int day = 1;
 	public int timeOfDay = 6;
@@ -25,5 +26,7 @@ public class World {
 	public bool elaineMourning = false;
 	public bool smelledTheBacon = false;
 	public bool refusedElaine = false;
+	public bool agreedToPhoto = false;
 
+	public int bellaRumor = 0;
 }

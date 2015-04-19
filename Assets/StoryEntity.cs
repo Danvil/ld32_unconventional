@@ -3,6 +3,9 @@ using System.Linq;
 
 public class StoryEntity {
 
+	public string kCityName = "Waterstand";
+	public string kElaineShopName = "ElectroSale";
+
 	public StoryEntity() {
 		stage = Stage.Singleton;
 	}

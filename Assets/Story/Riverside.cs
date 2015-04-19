@@ -11,7 +11,7 @@ public class Riverside : StoryEntity {
 	}
 
 	void Default() {
-		Narrate("riverside");
+		Narrate("You stand at the riverbank of a great river. The water looks murky and brown and emits an uncomfortable rotten smell. Debris and pieces of wood and plastic are swimming on the water. Fifty meters towards South the buildings of " + kCityName + " begin. The free space between them and the river is covered in tall, yellowish grass.");
 		Choose(Opt(LeaveToStreet, "Go to street"));
 	}
 
