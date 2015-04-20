@@ -63,6 +63,10 @@ public class HomeBedroom : StoryEntity {
 	void StayInBed() {
 		W.timeOfDay++;
 		hasSlept = 1;
+		if(!W.raidHappend) {
+			W.elaineMourning = true;
+			W.raidHappend = true;
+		}
 		Narrate("You turn around and cuddle in your blanket. You lie there pondering about the meaning of live and wish you could stay in bed the whole day. Your eye lids become heavy, and you fall asleep for an hour.", InBed);
 	}
 }

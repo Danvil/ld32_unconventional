@@ -39,7 +39,7 @@ public class Market : StoryEntity {
 			new Answer(() => !W.photofail && W.agreedToPhoto && W.numberOfPhotos < 3 && W.NumerUsefulPhotos() == 0, Quote("I have the photos!"), "successnot"),
 			new Answer("Leave the shop", "leave")
 		);
-		elaine.AddLine("success", "She looks at the photos. " + Quote("Splendid! I knew, I could count on you! Give them to me and we shall show everyone tomorrow at the celebration that Kester must be overturned!"), W.dayOfMourning.HasPhotos);
+		elaine.AddLine("success", "She looks at the photos. " + Quote("Splendid! I knew, I could count on you! Give them to me and we shall show everyone tomorrow at the celebration that Kester must be overturned!"), Mourn);
 		elaine.AddLine("successnot", "She looks at the photos. " + Quote("What have you photographed? This was not a sightseeing trip. You should photograph something unmasking about Kester!"),
 			new Answer(() => W.numberOfPhotos > 0, Quote("I go back and take some more"), "default"),
 			new Answer(() => W.numberOfPhotos == 0, Quote("Theses were all I could get."), "fail", () => { W.photofail = true; })
@@ -57,7 +57,7 @@ public class Market : StoryEntity {
 			new Answer(Quote("How does that help us with Kester?"), "listen"),
 			new Answer(Quote("I hoped for something with a bit more power."), "moarpower")
 		);
-		elaine.AddLine("moarpower", Quote("Don't be stupid. You can not just attack the peacekeepers with raw force. They are too many and too well equipped. You just get killed and this would help no one."), "listen");
+		elaine.AddLine("moarpower", Quote("Don't be stupid. You can not just attack the peacekeepers with raw force. They are too many and too well equipped. You just get yourself killed and we have another body to mourn."), "listen");
 		elaine.AddLine("listen", Quote("Listen, it's easy you just have to find a way to sneak into Kester Manor and take a few shots of what they do with our food there. You bring the photos to me and we will show them on the Day of Mourning to unmask him in front of everyone."), "think?"
 		);
 		elaine.AddLine("think?", Quote("What do you think?"),
@@ -67,7 +67,7 @@ public class Market : StoryEntity {
 			new Answer(Quote("Kester will pay for what he has done!"), "ok"),
 			new Answer(Quote("It is too dangerous. I can not do it."), "nook")
 		);
-		elaine.AddLine("madness", Quote("Not if you are careful. The Day of Mourning is the only day of the year on which  Kester has to leave his manor and show himself in public. An opportunity like this does not come again for a long time."), "think?");
+		elaine.AddLine("madness", Quote("Not if you are careful. The Day of Mourning is the only day of the year on which Kester has to leave his manor and show himself in public. An opportunity like this does not come again for a long time."), "think?");
 		elaine.AddLine("yourself", Quote("I do not have the courage to do it. I would just blunder as always and they would detect me."), "think?");
 		elaine.AddLine("nook", Quote("Well, I can not force you. If you would please excuse me then."), "default");
 		elaine.AddLine("ok", Quote("Splendid!") + " She hands you the camera and a three films. " + Quote("Don't waste the films, these are the only three I have. Return to me once you have some good photos.") + " Elaine seems relieved as if some of the burden on her shoulders has become a bit lighter. " + Quote("Perhaps Bella at the market can help you. She seems to know a few secrets about people."), () => { W.agreedToPhoto = true; }, "default");
@@ -104,7 +104,7 @@ public class Market : StoryEntity {
 			new Answer(Quote("I will better leave now."), "leave")
 		);
 		bella.AddLine("swordfish", Quote("Weeks of Mourning, darling. Have you forgotten?") + " She gives a soft sigh. " + Quote("No time for pleasure in theses days. I hope you are not too disappointed about that?"), "dialog");
-		bella.AddLine("kester_rumors", Quote("Not so loud, sweetheart. You don't want to alert the peacekeepers. Poor guys already need to worry about so much.") + " She scans the nearby area to make sure no one is listing. " + Quote("Go to the river, you will find your answers there."), "dialog");
+		bella.AddLine("kester_rumors", Quote("Not so loud, sweetheart. You don't want to alert the peacekeepers. Poor guys already need to worry about so much.") + " She scans the nearby area to make sure no one is listing. " + Quote("Go to the river huts, you will find your answers there."), "dialog");
 		bella.AddLine("rumor1", Quote("Noah seems to cause some trouble in the alleys as usual. Heard word he beat one of my girls. Tis' not nice to beat a girl."), "dialog");
 		bella.AddLine("rumor2", Quote("They say an old woman lives near the river who can tell you the future. The 'riverlady' they call her."), "dialog");
 		bella.AddLine("rumor3", Quote("At the junkyard there a strange flashes of light at night. Victor must have found another contraption. If you see him, tell him to be more careful, I don't want to loose my best customer."), "dialog");
@@ -114,6 +114,10 @@ public class Market : StoryEntity {
 
 	public void Enter() {
 		Default();
+	}
+
+	void Mourn() {
+		W.dayOfMourning.HasPhotos();
 	}
 
 	void LeaveToStreet() {

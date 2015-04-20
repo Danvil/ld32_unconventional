@@ -82,7 +82,7 @@ public class DayOfMourning : StoryEntity {
 	}
 
 	public void TribuneNoPhotos() {
-		Narrate("The ceremony seems to go on endlessly. At some point Kester himself appears closely guarded by a couple of peacekeepers. He preaches of the gods above and how suffering on earth will give you a happy live thereafter in heaven. The community seems to be mildly pleased by his word. At some point the peacekeepers bring a couple of small baskets with small food items. They order everyone to form a queue and receive a token of devotedness from father Kester himself. In the evening you walk back home, exhausted and hungry. You go to bed and hope for a better day tomorrow.", GameOver);
+		Narrate("The ceremony seems to go on endlessly. At some point Kester himself appears closely guarded by a couple of peacekeepers. He preaches of the gods above and how suffering on earth will give you a happy live thereafter in heaven. The community seems to be mildly pleased by his word. At some point the peacekeepers bring a couple of small baskets with small food items. They order everyone to form a queue and receive a token of devotedness from father Kester himself. The night is falling and you walk back home, hungry and exhausted from standing at the tribune for the whole day. You go to bed and hope for a better day tomorrow.", GameOver);
 	}
 
 	public void Shot() {

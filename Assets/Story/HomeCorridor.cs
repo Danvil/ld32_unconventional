@@ -59,7 +59,7 @@ public class HomeCorridor : StoryEntity {
 		elaineWakeup.AddLine("wakeup", Quote("Hey you! Wake up!") + " The voice of a woman is ringing in your ears. You feel a dull pain in your head and body. Slowly you open your eyes and try to focus. A young woman is bowed over you. " + elaine1 + " " + elaine2 + " Her eyes are red as if she has recently cried.",
 			new Answer(Quote("What happened?"), "explain"),
 			new Answer("...", "explain"));
-		elaineWakeup.AddLine("explain", Quote("The peacekeepers have beaten you up. You must have been in their way when they came to kill my brother.") + " She looks has a pained expression in here face in looks way. " + Quote("My poor brother..."),
+		elaineWakeup.AddLine("explain", Quote("The peacekeepers have beaten you up. You must have been in their way when they came to kill my brother.") + " She has a pained expression in here face and looks way. " + Quote("My poor brother..."),
 			new Answer(Quote("They killed someone?"), "ask"),
 			new Answer(Quote("This is not my business. I had enough for today!"), "enough"));
 		elaineWakeup.AddLine("ask", Quote("Yes. The peacekeepers broke through the door of my brothers apartment. Looks like he found a small animal and ate some of its meat for breakfast. I don't know what happened exactly, but theses idiots shot him several times and now he is lying dead on the floor in a pool of blood."), "help");
@@ -121,15 +121,15 @@ public class HomeCorridor : StoryEntity {
 
 	void Default() {
 		string baconText = " A smell of burnt meat hangs in the air.";
-		bool isBacon = level == 2 && W.IsTime(1, 6);
+		bool isBacon = level == 2 && !W.raidHappend;
 		Narrate(
-			"You find yourself in a long corridor. The ceiling is quite low and on each side there is a perfectly regular sequence of identically looking doors. The atmosphere is rather depressing." + Condition(level == 1, " On one end of the corridor there is a staircase. At the other end there is a door leading outside.") + Condition(level > 1, " On one end of the corridor there is a staircase, the other direction is just a dead end.") + Condition(level == 2 && W.elaineMourning && W.IsTime(1, 6), " There is a body lying in the hallway and a woman is kneeling over it.") + Condition(isBacon, baconText));
+			"You find yourself in a long corridor. The ceiling is quite low and on each side there is a perfectly regular sequence of identically looking doors. The atmosphere is rather depressing." + Condition(level == 1, " On one end of the corridor there is a staircase. At the other end there is a door leading outside.") + Condition(level > 1, " On one end of the corridor there is a staircase, the other direction is just a dead end.") + Condition(level == 2 && W.elaineMourning, " There is a body lying in the hallway and a woman is kneeling over it.") + Condition(isBacon, baconText));
 		Choose(
 			Opt(Staircase, "Go to the staircase"),
 			Opt(Neighbor, "Knock on a random door"),
 			Opt(level == 2, LeaveToApartment, "Enter your apartment"),
 			Opt(level == 1, LeaveToStreet, "Leave the building"),
-			Opt(level == 2 && W.elaineMourning && W.IsTime(1, 6), () => elaineMourn.Play("mourn"), "Approach the mourning woman"),
+			Opt(level == 2 && W.elaineMourning, () => elaineMourn.Play("mourn"), "Approach the mourning woman"),
 			Opt(isBacon, NeighborBacon, "Find the door which smells like bacon")
 		);
 	}
@@ -140,15 +140,15 @@ public class HomeCorridor : StoryEntity {
 	}
 
 	void NeighborResult1() {
-		Narrate("NeighborResult1", Default);
+		Narrate("Nothing happens", Default);
 	}
 
 	void NeighborResult2() {
-		Narrate("NeighborResult2", Default);
+		Narrate("You hear moaning on the other side. When you knock it suddenly stops and everything is quiet.", Default);
 	}
 
 	void NeighborResult3() {
-		Narrate("NeighborResult3", Default);
+		Narrate("Someone is hearing radio. They do not hear you.", Default);
 	}
 
 	void NeighborBacon() {
@@ -184,15 +184,15 @@ public class HomeCorridor : StoryEntity {
 		string[] notes = null;
 		if(level == 1) {
 			notes = new string[] {
-				"Die!", "Die!", "Die!"
+				"Die!", "Food!", "Dick"
 			};
 		} else if(level == 2) {
 			notes = new string[] {
-				"Die!", "Die!", "Die!"
+				"Die!", "I am hungry", "Shut up you idiots!"
 			};
 		} else if(level == 3) {
 			notes = new string[] {
-				"Die!", "Die!", "Die!"
+				"I love Bella", "Kester is a liar"
 			};
 		} else {
 			System.Diagnostics.Debug.Assert(false, "Logic error");

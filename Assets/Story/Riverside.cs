@@ -17,9 +17,22 @@ public class Riverside : StoryEntity {
 		);
 		mia.AddLine("kester", Quote("My son Adam works as a cook at Kester Manor. He is my good boy. Sometimes he brings food for me and the others. We would starve if not for him.") + " She pauses and turns the book in her lap around. " + Quote("Kester is a bad man. He does not allow my son to leave the Manor, but my boy found a way to visit his mother.") + " She gives the thought some weight with a long pause.", "kester2");
 		mia.AddLine("kester2", Quote("Sometimes my son has to sleep here outside with us even though he is useful to the community and has a job!") + " A confused look is on her face. " + Quote("My good boy always takes the broken hut. It's really cold in there when the wind howls.") + " You are not completely sure that she still has all her senses together.", () => { W.learnedAboutAdam = true; }, "main");
-		mia.AddLine("future", Quote("Come here child and give me your hand. I hope you have a small token of gratitude for an old woman?"), "future2");
-		mia.AddLine("future2", "She takes your hand and feels the shape of your fingers and the inside of your palm. " + Quote("You seem to work hard, child. I see that you will find a loved one to hold dear. Don't loose hope into the future, child.") + " She releases your hand and smiles weakly.", "main");
+		mia.AddLine("future", Quote("Come here child and give me your hand. I hope you have a small token of gratitude for an old woman?"), MiaFuture);
 		mia.AddLine("leave", ExamineHuts);
+	}
+
+	int futuren = 0;
+
+	public void MiaFuture() {
+		// What a mess..
+		string[] future = new string[] {
+			Quote("You seem to work hard, child. I see that you will find a loved one to hold dear. Don't loose hope, child."),
+			Quote("The stars are aligned in your favor. have faith and fate will give you what you seek."),
+			Quote("You will be respected by everyone... until there comes another, younger and more beautiful, to cast you down and take all that you hold dear.")
+		};
+		Narrate("She takes your hand and feels the shape of your fingers and the inside of your palm. " + future[futuren] + " She releases your hand and smiles weakly.");
+		futuren = (futuren + 1) % future.Length;
+		mia.Play("main");
 	}
 
 	public void Enter() {
@@ -37,7 +50,7 @@ public class Riverside : StoryEntity {
 	void Default() {
 		Narrate("You stand at the riverbank of a great river. The water looks murky and brown and emits an uncomfortable rotten smell. Debris and pieces of wood and plastic are swimming on the water. Fifty meters towards the South the buildings of " + kCityName + " begin. The free space between them and the river is covered in tall, yellowish grass.");
 		Choose(
-			Opt(LeaveToStreet, "Go to street"),
+			Opt(LeaveToStreet, "Go back to the street"),
 			Opt(Search, "Search the riverside for something interesting")
 		);
 	}
@@ -52,8 +65,13 @@ public class Riverside : StoryEntity {
 	}
 
 	void ExaminBottles() {
-		Narrate("You pick up one of the bottles and examine it more closely.");
-		Narrate("It says 'Coca Cola' and a refreshing drink for the whole family.", Default);
+		string[] msg = new string[] {
+			"It says 'Power Cola' and 'The healthy drink for the whole family'.",
+			"This one contains a small note. The note says: " + Quote("To the river I give my loved. May he find peace in the waves as I find peace in my tears."),
+			"An old broken glass bottle is half buried in the mud. It has sharp edges and you put it back before you cut yourself.",
+			"A small transparent plastic bottle without tag. It contains a small puddle of murky water."
+		};
+		Narrate("You pick up one of the bottles and examine it more closely. " + Rnd(msg), Default);
 	}
 
 	void ExamineWall() {
@@ -81,7 +99,7 @@ public class Riverside : StoryEntity {
 		string[] texts = new string[] {
 			"You can see an old woman lying on the floor. When she sees you the woman is shuffling around her blankets and creeps further back into the hut.",
 			"An elderly man with a long beard is sitting in the hut. He gives you a hostile glance and snarls " + Quote("Back away rookie!"),
-			"The interior of the hut is filled with empty plastic bottles. In the middle of the bottles sits a old woman covered in several layers of cloth. She scowls at you.",
+			"The interior of the hut is filled with plastic bottles. In the middle of it sits a old woman covered in several layers of cloth. She scowls at you.",
 			"The smell of feces billowing around this hut is almost unbearable. Suddenly a dark scheme is moving in the back of the hut and a loud coughing starts."
 		};
 		Narrate("You approach one of the huts. " + texts[huttext], ExamineHuts);

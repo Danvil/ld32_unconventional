@@ -13,8 +13,8 @@ public class Story : MonoBehaviour {
 
 		//InfiniteTest(0);
 
-		// // Normal start
-		// new Radio(() => world.homeBedroom.WakeUp());
+		// Normal start
+		new Radio(() => world.homeBedroom.WakeUp());
 
 		// // Start when entering the corridor
 		// world.homeCorridor.EnterFromApartment();
@@ -25,15 +25,15 @@ public class Story : MonoBehaviour {
 		// world.refusedElaine = false;
 		// world.riverside.Enter();
 
-		// Start after accepting to help Elain and finding the whole in the wall.
-		world.timeOfDay = 8;
-		world.raidHappend = true;
-		world.refusedElaine = false;
-		world.agreedToPhoto = true;
-		world.learnedAboutAdam = true;
-		world.discoveredHoleInWall = true;
-		//world.riverside.Enter();
-		world.kesterManor.EnterHoleInWall();
+		// // Start after accepting to help Elain and finding the whole in the wall.
+		// world.timeOfDay = 8;
+		// world.raidHappend = true;
+		// world.refusedElaine = false;
+		// world.agreedToPhoto = true;
+		// world.learnedAboutAdam = true;
+		// world.discoveredHoleInWall = true;
+		// //world.riverside.Enter();
+		// world.kesterManor.EnterHoleInWall();
 	}
 	
 	// void InfiniteTest(int i) {

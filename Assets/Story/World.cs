@@ -14,7 +14,7 @@ public class World {
 	public KesterManor kesterManor = new KesterManor();
 	public DayOfMourning dayOfMourning = new DayOfMourning();
 
-	public int day = 3;
+	public int day = 1;
 	public int timeOfDay = 6;
 
 	public bool IsFirstLight() {
