@@ -5,23 +5,35 @@ public class Story : MonoBehaviour {
 
 	public Stage stage;
 
+	public World world;
+
 	void Start() {
-		World world = new World();
+		world = new World();
 		World.Singleton = world;
 
 		//InfiniteTest(0);
 
-		// Normal start
+		// // Normal start
 		// new Radio(() => world.homeBedroom.WakeUp());
 
-		// Start when entering the corridor
+		// // Start when entering the corridor
 		// world.homeCorridor.EnterFromApartment();
 
-		// Start after you disposed the body together with Elaine.
+		// // Start after you disposed the body together with Elaine.
+		// world.timeOfDay = 8;
+		// world.raidHappend = true;
+		// world.refusedElaine = false;
+		// world.riverside.Enter();
+
+		// Start after accepting to help Elain and finding the whole in the wall.
 		world.timeOfDay = 8;
 		world.raidHappend = true;
 		world.refusedElaine = false;
-		world.riverside.Enter();
+		world.agreedToPhoto = true;
+		world.learnedAboutAdam = true;
+		world.discoveredHoleInWall = true;
+		//world.riverside.Enter();
+		world.kesterManor.EnterHoleInWall();
 	}
 	
 	// void InfiniteTest(int i) {

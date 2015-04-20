@@ -33,10 +33,18 @@ public class Market : StoryEntity {
 			"Elaine is sitting on a chair in a corner of the shop. She seems to be occupied with a small box full of wires and other electronic parts.",
 			new Answer(Quote("I am sorry for your loss. You must feel terrible."), "pity"),
 			new Answer(Quote("Just looking around."), "looking"),
-			new Answer(() => !W.agreedToPhoto, Quote("Can I help you with anything?"), "help"),
-			new Answer(() => W.agreedToPhoto, Quote("What should I do again?"), "ihaveforgotten"),
+			new Answer(() => !W.photofail && !W.agreedToPhoto, Quote("Can I help you with anything?"), "help"),
+			new Answer(() => !W.photofail && W.agreedToPhoto, Quote("What should I do again?"), "ihaveforgotten"),
+			new Answer(() => !W.photofail && W.agreedToPhoto && W.NumerUsefulPhotos() > 0, Quote("I have the photos!"), "success"),
+			new Answer(() => !W.photofail && W.agreedToPhoto && W.numberOfPhotos < 3 && W.NumerUsefulPhotos() == 0, Quote("I have the photos!"), "successnot"),
 			new Answer("Leave the shop", "leave")
 		);
+		elaine.AddLine("success", "She looks at the photos. " + Quote("Splendid! I knew, I could count on you! Give them to me and we shall show everyone tomorrow at the celebration that Kester must be overturned!"), W.dayOfMourning.HasPhotos);
+		elaine.AddLine("successnot", "She looks at the photos. " + Quote("What have you photographed? This was not a sightseeing trip. You should photograph something unmasking about Kester!"),
+			new Answer(() => W.numberOfPhotos > 0, Quote("I go back and take some more"), "default"),
+			new Answer(() => W.numberOfPhotos == 0, Quote("Theses were all I could get."), "fail", () => { W.photofail = true; })
+			);
+		elaine.AddLine("fail", Quote("This was our only chance!") + " Her face fills with sadness and she turns away. You can not do much more than go back to you bed and sleep until tomorrow.", "default");
 		elaine.AddLine("ihaveforgotten", Quote("Sneak into Kester Manor and try to find out what he is doing there with our food. Take a few unmasking photos and come back to me alive."), "default");
 		elaine.AddLine("looking",
 			Quote("If you need my counsel or look for something in particular let me know."),
@@ -62,7 +70,7 @@ public class Market : StoryEntity {
 		elaine.AddLine("madness", Quote("Not if you are careful. The Day of Mourning is the only day of the year on which  Kester has to leave his manor and show himself in public. An opportunity like this does not come again for a long time."), "think?");
 		elaine.AddLine("yourself", Quote("I do not have the courage to do it. I would just blunder as always and they would detect me."), "think?");
 		elaine.AddLine("nook", Quote("Well, I can not force you. If you would please excuse me then."), "default");
-		elaine.AddLine("ok", Quote("Splendid!") + " She hands you the camera and a pack of films. " + Quote("Return to me once you have the photos.") + " Elaine seems relieved as if some of the burden on her shoulders has become a bit lighter. " + Quote("Perhaps Bella at the market can help you. She seems to know a few secrets about people."), () => { W.agreedToPhoto = true; }, "default");
+		elaine.AddLine("ok", Quote("Splendid!") + " She hands you the camera and a three films. " + Quote("Don't waste the films, these are the only three I have. Return to me once you have some good photos.") + " Elaine seems relieved as if some of the burden on her shoulders has become a bit lighter. " + Quote("Perhaps Bella at the market can help you. She seems to know a few secrets about people."), () => { W.agreedToPhoto = true; }, "default");
 		elaine.AddLine("leave", InspectStalls);
 		
 		// The fish monger tries to sell fish he does not have

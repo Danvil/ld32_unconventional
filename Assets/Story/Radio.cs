@@ -19,7 +19,7 @@ public class Radio : StoryEntity {
 		if(daysLeft == 0) {
 			message = "Today is the Day of Mourning. TODO";
 		} else {
-			message = string.Format("Dear brother, dear sister, there are {0} days left until the Day of Mourning. We shall all work feverishly to fullfill our assignments. By contributing your gifts to the community you demonstrate the generosity and kindness of your soul. Your fellow citizens are counting on you.", NumberWord(daysLeft));
+			message = string.Format("Dear brother, dear sister, tomorrow is the Day of Mourning. We shall all work feverishly to fullfill our assignments. By contributing your gifts to the community you demonstrate the generosity and kindness of your soul. Your fellow citizens are counting on you.");
 		}
 		string[] text = new string[] {
 			"GOOD MORNING, citizens of " + kCityName + "! Rise and shine for a new day under the light of our beloved father Kester McIver. It is 6:17 and the sun is rising. Remember, today the sun will set at 19:23. Use daylight as efficient as possible to avoid unnecessary energy consumption!",

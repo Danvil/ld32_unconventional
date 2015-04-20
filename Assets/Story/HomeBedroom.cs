@@ -28,7 +28,9 @@ public class HomeBedroom : StoryEntity {
 		Choose(
 			Opt(StandUp, "Stand up"),
 			Opt(SwitchOnRadio, "Switch on the radio"),
-			Opt(StayInBed, "Stay in bed"));
+			Opt(StayInBed, "Stay in bed"),
+			Opt(W.refusedElaine || W.agreedToPhoto, W.dayOfMourning.Sleeper, "Sleep until the next day")
+		);
 	}
 
 	void StandUp() {

@@ -7,35 +7,27 @@ public class Riverside : StoryEntity {
 	public Riverside() {
 		mia = new Dialog();
 		string miadesc = "Inside there is not much more than a single chair and a couple of blankets lying on the floor. On the chair sits an old woman in her sixties.";
-		mia.AddLine("knock",
-			"You knock against the door of the hut. There is a rustling noise. After a moment you hear the voice of an old woman. " + Quote("Come in!"),
-			"knockenter"
-		);
-		mia.AddLine("knockenter",
-			"You enter the hut. " + miadesc + " She has a book in her lab and looks at you curiously. " + Quote(" The old forgotten people don't get visits from you often."),
-			"main"
-		);
-		mia.AddLine("enter",
-			"You push the curtain at the door aside and enter the hut. " + miadesc + " She has a book in her lab and looks at you in disdain. ",
-			"main"
-		);
-		mia.AddLine("main",
-			Quote("How can I help you, child?"),
+		mia.AddLine("knock", "You knock against the door of the hut. There is a rustling noise. After a moment you hear the voice of an old woman. " + Quote("Come in!"), "knockenter");
+		mia.AddLine("knockenter", "You enter the hut. " + miadesc + " She has a book in her lab and looks at you curiously. " + Quote(" The old forgotten people don't get visits from you often."), "main");
+		mia.AddLine("enter", "You push the curtain at the door aside and enter the hut. " + miadesc + " She has a book in her lab and looks at you in disdain. ", "main");
+		mia.AddLine("main", Quote("How can I help you, child?"),
 			new Answer(() => W.agreedToPhoto, Quote("Do you know how to enter Kester Manor?"), "kester"),
 			new Answer(Quote("I want to know my future."), "future"),
 			new Answer(Quote("Nevermind"), "leave")
 		);
-		mia.AddLine("kester",
-			Quote("My son Adam works as a cook at Kester Manor. He is my good boy. Sometimes he brings food for me and the others. We would starve if not for him.") + " She pauses and turns the book in her lap around. " + Quote("Kester is a bad man. He does not allow my son to leave the Manor, but my boy found a way to visit his mother.") + " She gives the thought some weight with a long pause. " + Quote("Sometimes my son has to sleep here outside with us even though he is useful to the community and has a job!") + " A confused look is on her face. " + Quote("My good boy always takes the broken hut. It's really cold in there when the wind howls.") + " You are not completely sure that she still has all her senses together.", () => { W.learnedAboutAdam = true; }, "main");
-		mia.AddLine("future",
-			Quote("Come here child and give me your hand. I hope you have a small token of gratitude for an old woman?"),
-			"future2");
+		mia.AddLine("kester", Quote("My son Adam works as a cook at Kester Manor. He is my good boy. Sometimes he brings food for me and the others. We would starve if not for him.") + " She pauses and turns the book in her lap around. " + Quote("Kester is a bad man. He does not allow my son to leave the Manor, but my boy found a way to visit his mother.") + " She gives the thought some weight with a long pause.", "kester2");
+		mia.AddLine("kester2", Quote("Sometimes my son has to sleep here outside with us even though he is useful to the community and has a job!") + " A confused look is on her face. " + Quote("My good boy always takes the broken hut. It's really cold in there when the wind howls.") + " You are not completely sure that she still has all her senses together.", () => { W.learnedAboutAdam = true; }, "main");
+		mia.AddLine("future", Quote("Come here child and give me your hand. I hope you have a small token of gratitude for an old woman?"), "future2");
 		mia.AddLine("future2", "She takes your hand and feels the shape of your fingers and the inside of your palm. " + Quote("You seem to work hard, child. I see that you will find a loved one to hold dear. Don't loose hope into the future, child.") + " She releases your hand and smiles weakly.", "main");
 		mia.AddLine("leave", ExamineHuts);
 	}
 
 	public void Enter() {
 		Default();
+	}
+
+	public void EnderThroughHoleInWall() {
+		HutDeserted();
 	}
 
 	void LeaveToStreet() {
@@ -104,13 +96,13 @@ public class Riverside : StoryEntity {
 		Narrate("You stand in a ruined hut which looks even more shabby than the others. The floor is covered in debris. A couple of plants started to grow and stretch high to access the few rays of light falling through the cracks in the ceiling. There a couple of wooden crates piled against the wall." + adam);
 		Choose(
 			Opt(W.discoveredHoleInWall, Crawl, "Crawl through the hole in the wall."),
-			Opt(W.learnedAboutAdam, HutDesertedInvestigate, "Investigate the hut more closely"),
+			Opt(W.learnedAboutAdam && !W.discoveredHoleInWall, HutDesertedInvestigate, "Investigate the hut more closely"),
 			Opt(ExamineHuts, "Leave the hut")
 		);
 	}
 
 	void HutDesertedInvestigate() {
-		Narrate("The turn around every piece of debris in the hut. There seems to be nothing special about it. Just as you want to give up, you discover traces of a heavy object being moved near one of the crates. The crate is pretty heavy and you need all your force to move it away from the wall. Behind it you spot a small hole in the wall. If you would crouch on the floor you could crawl through it.");
+		Narrate("The turn around every piece of debris in the hut. There seems to be nothing special about it. Just as you want to give up, you discover traces of a heavy object being moved near one of the crates. The crate is pretty heavy and you need all your force to move it away from the wall. Behind it you spot a hole in the wall. If you would crouch on the floor you could crawl through it.");
 		Choose(
 			Opt(Crawl, "Crawl through the hole"),
 			Opt(ExamineHuts, "Leave the hut")
@@ -118,7 +110,10 @@ public class Riverside : StoryEntity {
 	}
 
 	void Crawl() {
-		Narrate("GREAT", () => new TheEnd());
+		Narrate("You lay down on the floor and squeeze behind the heavy crate. The hole in the wall is just large enough to crawl through. The wall seems to be about half a meter thick with solid stone only on the outside and loose gravel and sand in between. Someone has reinforced the hole with old wooden planks too stop it from collapsing. You see only darkness one the other side.");
+		Choose(
+			Opt(W.kesterManor.EnterHoleInWall, "Crawl through"),
+			Opt(HutDeserted, "Turn back"));
 	}
 
 	void HutWalkMia() {
