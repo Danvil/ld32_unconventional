@@ -73,7 +73,7 @@ public class KesterManor : StoryEntity {
 			new Answer(() => W.numberOfPhotos == 0, "You used all films and can not take anymore photos", "main"),
 			new Answer("Leave the barn", "leave")
 		);
-		crates.AddLine("photo", "You take a photo of the animals in the barn. If you show this to the community at the Day of Mourning it will create an outcry.", () => {
+		barne.AddLine("photo", "You take a photo of the animals in the barn. If you show this to the community at the Day of Mourning it will create an outcry.", () => {
 				W.numberOfPhotos--;
 				W.hasBarnPenPhoto = true;
 			}, "start");
